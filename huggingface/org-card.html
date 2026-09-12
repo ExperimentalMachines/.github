@@ -1,0 +1,91 @@
+<div align="center">
+  <h1>Experimental Machines</h1>
+  <p>
+    Open-weight models compiled for phones, abliterated checkpoints, and tool-calling research.
+    Each card says what was measured, how, and what was not.
+  </p>
+  <p>
+    <a href="https://experimentalmachines.org">experimentalmachines.org</a> &middot;
+    <a href="https://experimentalintelligence.org">experimentalintelligence.org</a> &middot;
+    <a href="https://github.com/ExperimentalMachines">GitHub</a> &middot;
+    <a href="https://play.google.com/store/apps/details?id=io.github.alpharomercoma.openweights">OpenWeights on Google Play</a>
+  </p>
+</div>
+
+<h2>Compiled for phones</h2>
+
+<p>
+  ExecuTorch 1.4 programs for the XNNPACK CPU backend with a 32,768-token context window.
+  Weights are int4 in groups of 32 with int8 dynamic activations, the layout Arm's KleidiAI
+  kernels accelerate on Arm CPUs with the i8mm and dotprod extensions, which recent flagship and
+  mid-range phones have. No GPU or NPU delegate, so the file is not tied to one
+  chip vendor. They are in the format the
+  <a href="https://github.com/ExperimentalMachines/openweights">OpenWeights</a> Android app
+  runs, and each of the three cards reports the memory and speed measured on a Dimensity 9400.
+</p>
+
+<table>
+  <thead>
+    <tr><th>Repository</th><th>Base model</th><th>File</th><th>Dimensity 9400 decode</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://huggingface.co/experimentalmachines/LFM2.5-1.2B-Instruct-ExecuTorch-XNNPACK-32k">LFM2.5-1.2B-Instruct-ExecuTorch-XNNPACK-32k</a></td>
+      <td>LiquidAI/LFM2.5-1.2B-Instruct</td><td>827 MB</td><td>40.5 tokens/s</td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/experimentalmachines/LFM2.5-2.6B-ExecuTorch-XNNPACK-32k">LFM2.5-2.6B-ExecuTorch-XNNPACK-32k</a></td>
+      <td>LiquidAI/LFM2.5-2.6B</td><td>1.81 GB</td><td>18.1 tokens/s</td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/experimentalmachines/Qwen3-1.7B-ExecuTorch-XNNPACK-32k">Qwen3-1.7B-ExecuTorch-XNNPACK-32k</a></td>
+      <td>Qwen/Qwen3-1.7B</td><td>1.35 GB</td><td>16.6 tokens/s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  The Qwen3 file needs about 7 GB for its KV cache at the full window and ran only on a 16 GB
+  phone; the LFM2.5 files need about 1 GB.
+</p>
+
+<h2>Abliterated</h2>
+
+<p>
+  Refusal-direction ablation of the LFM2.5 models with
+  <a href="https://github.com/p-e-w/heretic">heretic</a>: a 200-trial search that trades
+  refusal rate against KL divergence from the original, a chosen point on that Pareto front,
+  weights merged, chat template and tool-calling tokens unchanged. Each repository holds the
+  safetensors weights and, in <code>executorch/</code>, an ExecuTorch export of them made with the
+  same 32k recipe as the compiled models above.
+</p>
+
+<ul>
+  <li><a href="https://huggingface.co/experimentalmachines/LFM2.5-1.2B-Instruct-heretic">LFM2.5-1.2B-Instruct-heretic</a></li>
+  <li><a href="https://huggingface.co/experimentalmachines/LFM2.5-2.6B-heretic">LFM2.5-2.6B-heretic</a></li>
+</ul>
+
+<h2>Tool-calling research</h2>
+
+<p>
+  From the <a href="https://github.com/arjhinety/OpenGrad">OpenGrad</a> study of calibrated tool use:
+  <a href="https://huggingface.co/experimentalmachines/QwenGrad-DPO">QwenGrad-DPO</a>, a Direct
+  Preference Optimization checkpoint of Qwen3.5-2B selected under a pre-registered promotion
+  policy, and its
+  <a href="https://huggingface.co/experimentalmachines/QwenGrad-Qwen3.5-2B-M1-DPO-v2-ExecuTorch-CPU">ExecuTorch CPU export</a>,
+  published as exported and pending behavioural evaluation. Research artifacts, not production models.
+</p>
+
+<h2>How the exports are made</h2>
+
+<p>
+  <a href="https://github.com/ExperimentalMachines/executorch-model-exporter">executorch-model-exporter</a>
+  is the pipeline being built to export on GitHub-hosted runners with ExecuTorch's own per-family
+  recipes, smoke-test each program with the runner the app uses, and publish here; the models above
+  were exported by hand, with the recipe recorded in each card. The phone measurements are on
+  <a href="https://experimentalmachines.github.io/openweights/latency.html">latency</a>,
+  <a href="https://experimentalmachines.github.io/openweights/window.html">context window</a> and
+  <a href="https://experimentalmachines.github.io/openweights/reruns.html">rerun</a> pages, with raw results.
+</p>
+
+<p>Contact: alpha@experimentalmachines.org</p>
