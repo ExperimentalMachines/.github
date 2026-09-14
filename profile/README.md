@@ -38,7 +38,25 @@ The organization publishes at [huggingface.co/experimentalmachines](https://hugg
 | [LFM2.5-1.2B-Instruct-heretic](https://huggingface.co/experimentalmachines/LFM2.5-1.2B-Instruct-heretic) | LiquidAI/LFM2.5-1.2B-Instruct |
 | [LFM2.5-2.6B-heretic](https://huggingface.co/experimentalmachines/LFM2.5-2.6B-heretic) | LiquidAI/LFM2.5-2.6B |
 
-**Tool-calling research.** From the [OpenGrad](https://github.com/arjhinety/OpenGrad) study of calibrated tool use: [QwenGrad-DPO](https://huggingface.co/experimentalmachines/QwenGrad-DPO), a Direct Preference Optimization checkpoint of Qwen3.5-2B selected under a pre-registered promotion policy, and its [ExecuTorch CPU export](https://huggingface.co/experimentalmachines/QwenGrad-Qwen3.5-2B-M1-DPO-v2-ExecuTorch-CPU), which is published as exported and pending behavioural evaluation. Both are research artifacts, not production models.
+**Tool-calling research.** The [OpenGrad](https://github.com/arjhinety/OpenGrad) study publishes the whole tool-use ladder — the promoted checkpoint and its parent, the corpus behind them, and the deployment formats. Scores are on the frozen 1,277-example confirmatory partition, the pre-registered internal evidence for tool routing.
+
+| Repository | What it is | Confirmatory call F1 / recall |
+|---|---|---|
+| [OpenGrad-Qwen3.5-2B-M1-DPO-CanonicalV2-Final-v2](https://huggingface.co/arjhinety/OpenGrad-Qwen3.5-2B-M1-DPO-CanonicalV2-Final-v2) | `dpo-checkpoint-30`, selected on the frozen DEV partition and promoted under `tool_use_promotion_v4`; checkpoints 30, 60, 90 and 120 all published | **0.7548 / 0.7748** |
+| [OpenGrad-Qwen3.5-2B-M0-SFT-CanonicalV2-Final](https://huggingface.co/arjhinety/OpenGrad-Qwen3.5-2B-M0-SFT-CanonicalV2-Final) | the parent M0 SFT checkpoint 1800, the calibrated frontier the DPO stage builds on | 0.7470 / 0.7594 |
+| [OpenGrad-Qwen3.5-2B-M1-DPO-CanonicalV2-Final-v2-GGUF](https://huggingface.co/arjhinety/OpenGrad-Qwen3.5-2B-M1-DPO-CanonicalV2-Final-v2-GGUF) | BF16 plus nine llama.cpp quantization formats from one importance matrix; Q6_K at 1.45 GiB is the recommended one | Q6_K 0.7572 / 0.7881 |
+| [QwenGrad-DPO](https://huggingface.co/experimentalmachines/QwenGrad-DPO) | the promoted checkpoint mirrored in this organization in standard `transformers` layout | same weights as the first row |
+| [QwenGrad-Qwen3.5-2B-M1-DPO-v2-ExecuTorch-CPU](https://huggingface.co/experimentalmachines/QwenGrad-Qwen3.5-2B-M1-DPO-v2-ExecuTorch-CPU) | XNNPACK CPU deployment build at 8da4w, 2.89 GiB and 3.09× smaller than fp32, shipping the pinned renderer, the frozen prompt ids and its own scorer | export, 5,760-token window |
+
+**Corpora and evaluation records.**
+
+| Dataset | Contents |
+|---|---|
+| [OpenGrad-ToolPolicy-Canonical-v2](https://huggingface.co/datasets/arjhinety/OpenGrad-ToolPolicy-Canonical-v2) | 173,237 records from four sources, 161,966 trainable — the corpus behind M0 |
+| [OpenGrad-ToolPolicy-Canonical-v2-M0-snapshot](https://huggingface.co/datasets/arjhinety/OpenGrad-ToolPolicy-Canonical-v2-M0-snapshot) | the M0 training snapshot, 103k records |
+| [OpenGrad-ToolPolicy-Canonical-v2-minus-xlam](https://huggingface.co/datasets/arjhinety/OpenGrad-ToolPolicy-Canonical-v2-minus-xlam) | the xlam-held-out ablation corpus, 116k records |
+| [OpenGrad-ToolPolicy-Canonical-v1](https://huggingface.co/datasets/arjhinety/OpenGrad-ToolPolicy-Canonical-v1) | the earlier normalization-v1 corpus, 214k records, kept for provenance |
+| [OpenGrad-Qwen3.5-2B-M0-SFT-CorpusV1-evaluation](https://huggingface.co/datasets/arjhinety/OpenGrad-Qwen3.5-2B-M0-SFT-CorpusV1-evaluation) | evaluation records for the corpus-v1 M0 run, whose checkpoints are no longer published |
 
 ## Tooling
 
