@@ -15,6 +15,10 @@ Independent measurements of AI hardware, small models trained in the open, and t
 
 The phone measurements behind the app are published as pages with their methods and raw results: [latency on five chips](https://experimentalmachines.github.io/openweights/latency.html), [the exported-window study](https://experimentalmachines.github.io/openweights/window.html) and [its reruns](https://experimentalmachines.github.io/openweights/reruns.html).
 
+## OpenGrad
+
+[OpenGrad](https://github.com/arjhinety/OpenGrad) is the frontier research lab repository: controlled post-training of small open-weight models in the open, with pre-registered evaluation gates, per-example records that recompute without a GPU, and negative results kept on the record rather than edited away. Study 001 on calibrated tool use in Qwen3.5-2B raised the tool-calling F1 from 0.6264 to 0.7470 with SFT, then measured what the promotion gate could not see: the promoted checkpoint refuses all 1,319 bare GSM8K questions and trails the base model by 12 to 23 points on IFEval, 8-shot maths and MMLU-Pro. Weight, code, training logs and the 93-claim audit are published — the frozen evidence at tag [`study-001`](https://github.com/arjhinety/OpenGrad/tree/study-001) and the write-up at [opengrad.arjhinety.com/studies/001](https://opengrad.arjhinety.com/studies/001).
+
 ## Models on Hugging Face
 
 The organization publishes at [huggingface.co/experimentalmachines](https://huggingface.co/experimentalmachines).
@@ -43,6 +47,8 @@ The organization publishes at [huggingface.co/experimentalmachines](https://hugg
 ## Where the studies live
 
 The benchmark repositories linked from experimentalmachines.org, such as MI300X-vs-H200, torchneuronx and snapdragon-vs-m5, and the training code and weights linked from experimentalintelligence.org, are still published under [alpharomercoma](https://github.com/alpharomercoma) on GitHub and Hugging Face. The sites are the index to them.
+
+OpenGrad carries its own index. The training code and configs, the run ledger and per-checkpoint evaluation records, the derived result index and the study reports — SFT and DPO execution, the general-capability diagnosis, the quantization evaluation, the errata and the campaign audit — are committed in [github.com/arjhinety/OpenGrad](https://github.com/arjhinety/OpenGrad), frozen at tag [`study-001`](https://github.com/arjhinety/OpenGrad/tree/study-001). Its weights, training corpora and evaluation records are published under [arjhinety](https://huggingface.co/arjhinety) on Hugging Face, and the study write-ups at [opengrad.arjhinety.com](https://opengrad.arjhinety.com).
 
 ## Contact
 
