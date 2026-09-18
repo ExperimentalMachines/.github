@@ -21,17 +21,20 @@ The phone measurements behind the app are published as pages with their methods 
 
 ## Models on Hugging Face
 
-The organization publishes at [huggingface.co/experimentalmachines](https://huggingface.co/experimentalmachines).
+The organization publishes at [huggingface.co/experimentalmachines](https://huggingface.co/experimentalmachines): 31 model repositories.
 
-**Compiled for phones.** ExecuTorch 1.4 programs for the XNNPACK CPU backend with a 32,768-token context window. Weights are int4 in groups of 32 with int8 dynamic activations, the layout Arm's KleidiAI kernels accelerate on Arm CPUs with the i8mm and dotprod extensions, which recent flagship and mid-range phones have. Each of the three cards reports the memory and speed measured on a Dimensity 9400. The Qwen3 file needs about 7 GB for its KV cache at the full window, so it ran only on a 16 GB phone; the LFM2.5 files need about 1 GB.
+**Exported by the pipeline.** 24 repositories across Qwen3, Qwen2.5, Llama 3.2 and SmolLM2, holding 113 ExecuTorch programs between them: every backend the exporter can build at every context window from 2k to 32k, 97 for XNNPACK on any arm64 CPU, 11 for Qualcomm's QNN, 4 for MediaTek and 1 for Vulkan. Each program is smoke-tested with the runner the app uses, and each folder's `config.json` estimates whether the window fits a 5 GB phone budget.
+
+**Compiled by hand, and measured.** The families the exporter does not cover, at a 32,768-token window. Weights are int4 in groups of 32 with int8 dynamic activations, the layout Arm's KleidiAI kernels accelerate on Arm CPUs with the i8mm and dotprod extensions, which recent flagship and mid-range phones have. Each card reports the memory and speed measured on a Dimensity 9400. The Qwen3 file needs about 7 GB for its KV cache at the full window, so it ran only on a 16 GB phone; the LFM2.5 file needs about 1 GB.
 
 | Repository | Base model | File |
 |---|---|---|
 | [LFM2.5-1.2B-Instruct-ExecuTorch-XNNPACK-32k](https://huggingface.co/experimentalmachines/LFM2.5-1.2B-Instruct-ExecuTorch-XNNPACK-32k) | LiquidAI/LFM2.5-1.2B-Instruct | 827 MB |
-| [LFM2.5-2.6B-ExecuTorch-XNNPACK-32k](https://huggingface.co/experimentalmachines/LFM2.5-2.6B-ExecuTorch-XNNPACK-32k) | LiquidAI/LFM2.5-2.6B | 1.81 GB |
 | [Qwen3-1.7B-ExecuTorch-XNNPACK-32k](https://huggingface.co/experimentalmachines/Qwen3-1.7B-ExecuTorch-XNNPACK-32k) | Qwen/Qwen3-1.7B | 1.35 GB |
 
-**Abliterated.** Refusal-direction ablation of the LFM2.5 models with [heretic](https://github.com/p-e-w/heretic), with a 200-trial search that trades refusal rate against KL divergence from the original and a chosen point on that Pareto front. Each repository holds the merged safetensors weights and an ExecuTorch export of them made with the same 32k recipe as the compiled models above.
+**A defect worth knowing about.** Every LFM2.5 export published here before 2026-09-19 lost most of its tool calling, for two reasons found in September 2026: ExecuTorch's LFM2 definition never cleared the short convolution's state between prompts, so each prompt ran on the last one's, and the int4 weights were rounded rather than solved. On 141 held-out questions the old 1.2B export searched when needed on 10 percent of the questions that needed it and spoke of search results it had never fetched in a quarter of its replies; the re-export, with the state cleared in the graph and the int4 codes solved by GPTQ on the delegate's own grid, reads 49 and 1 percent at the same size and speed. The 1.2B repository carries the fixed file. The 2.6B export and the files beside the abliterated weights were withdrawn rather than shipped broken, and return when each has its own solve. The method, the numbers and what is still unknown are in [a compiled LFM2.5 that calls tools](https://github.com/alpharomercoma/openweights/blob/main/docs/research/executorch-state-and-recipes.md).
+
+**Abliterated.** Refusal-direction ablation of the LFM2.5 models with [heretic](https://github.com/p-e-w/heretic), with a 200-trial search that trades refusal rate against KL divergence from the original and a chosen point on that Pareto front. Each repository holds the merged safetensors weights. The ExecuTorch export that used to sit beside them was withdrawn on 2026-09-19; see the defect below.
 
 | Repository | Base model |
 |---|---|
@@ -60,7 +63,7 @@ The organization publishes at [huggingface.co/experimentalmachines](https://hugg
 
 ## Tooling
 
-[executorch-model-exporter](https://github.com/ExperimentalMachines/executorch-model-exporter) is the pipeline being built to export small open-weight models from Hugging Face to ExecuTorch on GitHub-hosted runners, smoke-test each program with the runner the app uses, and publish to this organization. Its XNNPACK path covers Qwen3, Qwen2.5, Llama 3.2 and SmolLM2; the Qualcomm and MediaTek NPU backends and the Hub watcher are planned. The models above were exported by hand, with the recipes recorded in their cards.
+[executorch-model-exporter](https://github.com/ExperimentalMachines/executorch-model-exporter) exports small open-weight models from Hugging Face to ExecuTorch on GitHub-hosted runners, smoke-tests each program with the runner the app uses, and publishes to this organization. It has shipped the 24 repositories above. Its XNNPACK path covers Qwen3, Qwen2.5, Llama 3.2 and SmolLM2, and it also builds for Qualcomm's QNN, for MediaTek and for Vulkan. The LFM2.5 files were exported by hand, with the recipes recorded in their cards.
 
 ## Where the studies live
 

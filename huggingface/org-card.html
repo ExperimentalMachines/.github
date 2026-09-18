@@ -21,7 +21,7 @@
   mid-range phones have. No GPU or NPU delegate, so the file is not tied to one
   chip vendor. They are in the format the
   <a href="https://github.com/ExperimentalMachines/openweights">OpenWeights</a> Android app
-  runs, and each of the three cards reports the memory and speed measured on a Dimensity 9400.
+  runs, and each card reports the memory and speed measured on a Dimensity 9400.
 </p>
 
 <table>
@@ -32,10 +32,6 @@
     <tr>
       <td><a href="https://huggingface.co/experimentalmachines/LFM2.5-1.2B-Instruct-ExecuTorch-XNNPACK-32k">LFM2.5-1.2B-Instruct-ExecuTorch-XNNPACK-32k</a></td>
       <td>LiquidAI/LFM2.5-1.2B-Instruct</td><td>827 MB</td><td>40.5 tokens/s</td>
-    </tr>
-    <tr>
-      <td><a href="https://huggingface.co/experimentalmachines/LFM2.5-2.6B-ExecuTorch-XNNPACK-32k">LFM2.5-2.6B-ExecuTorch-XNNPACK-32k</a></td>
-      <td>LiquidAI/LFM2.5-2.6B</td><td>1.81 GB</td><td>18.1 tokens/s</td>
     </tr>
     <tr>
       <td><a href="https://huggingface.co/experimentalmachines/Qwen3-1.7B-ExecuTorch-XNNPACK-32k">Qwen3-1.7B-ExecuTorch-XNNPACK-32k</a></td>
@@ -49,6 +45,22 @@
   phone; the LFM2.5 files need about 1 GB.
 </p>
 
+<h2>A defect worth knowing about</h2>
+
+<p>
+  Every LFM2.5 export published here before 2026-09-19 lost most of its tool calling, for two
+  reasons found in September 2026: ExecuTorch's LFM2 definition never cleared the short
+  convolution's state between prompts, so each prompt ran on the last one's, and the int4 weights
+  were rounded rather than solved. On 141 held-out questions the old 1.2B export searched when
+  needed on 10 percent of the questions that needed it and spoke of search results it had never
+  fetched in a quarter of its replies; the re-export, with the state cleared in the graph and the
+  int4 codes solved by GPTQ on the delegate's own grid, reads 49 and 1 percent at the same size and
+  speed. The 1.2B repository carries the fixed file. The 2.6B export and the files beside the
+  abliterated weights were withdrawn rather than shipped broken, and return when each has its own
+  solve. Method and numbers:
+  <a href="https://github.com/alpharomercoma/openweights/blob/main/docs/research/executorch-state-and-recipes.md">a compiled LFM2.5 that calls tools</a>.
+</p>
+
 <h2>Abliterated</h2>
 
 <p>
@@ -56,8 +68,8 @@
   <a href="https://github.com/p-e-w/heretic">heretic</a>: a 200-trial search that trades
   refusal rate against KL divergence from the original, a chosen point on that Pareto front,
   weights merged, chat template and tool-calling tokens unchanged. Each repository holds the
-  safetensors weights and, in <code>executorch/</code>, an ExecuTorch export of them made with the
-  same 32k recipe as the compiled models above.
+  merged safetensors weights. The ExecuTorch export that used to sit in
+  <code>executorch/</code> was withdrawn on 2026-09-19; see the defect below.
 </p>
 
 <ul>
@@ -80,9 +92,11 @@
 
 <p>
   <a href="https://github.com/ExperimentalMachines/executorch-model-exporter">executorch-model-exporter</a>
-  is the pipeline being built to export on GitHub-hosted runners with ExecuTorch's own per-family
-  recipes, smoke-test each program with the runner the app uses, and publish here; the models above
-  were exported by hand, with the recipe recorded in each card. The phone measurements are on
+  exports on GitHub-hosted runners with ExecuTorch's own per-family recipes, smoke-tests each
+  program with the runner the app uses, and publishes here. It has shipped 24 repositories across
+  Qwen3, Qwen2.5, Llama 3.2 and SmolLM2, holding 113 programs between them: 97 for XNNPACK on any
+  arm64 CPU, 11 for Qualcomm's QNN, 4 for MediaTek and 1 for Vulkan, at every context window from
+  2k to 32k. The LFM2.5 files above were exported by hand, with the recipe recorded in each card. The phone measurements are on
   <a href="https://experimentalmachines.github.io/openweights/latency.html">latency</a>,
   <a href="https://experimentalmachines.github.io/openweights/window.html">context window</a> and
   <a href="https://experimentalmachines.github.io/openweights/reruns.html">rerun</a> pages, with raw results.
