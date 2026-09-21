@@ -43,4 +43,4 @@ Each export card identifies the source revision, quantization recipe, context wi
 
 ## Contact
 
-alpha@experimentalmachines.org
+alpha@experimentalmachines.org · arjhine@experimentalmachines.org
