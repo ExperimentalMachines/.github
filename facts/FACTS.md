@@ -6,7 +6,7 @@
 {"description":"Independent benchmarks for AI hardware. GPUs, NPUs and ASICs measured at datacenter, laptop and phone scale, with every log published.","has_pages":false,"homepage":"https://experimentalmachines.org","license":null,"name":"experimentalmachines.org","private":false,"pushed_at":"2026-09-06T11:56:23Z","topics":[]}
 {"description":"Run open-weight models from Hugging Face on your Android phone. No account, no cloud, no telemetry. Native Kotlin and Compose, inference by llama.cpp \u0026 ExecuTorch","has_pages":true,"homepage":"https://play.google.com/store/apps/details?id=io.github.alpharomercoma.openweights","license":"Apache-2.0","name":"openweights","private":false,"pushed_at":"2026-09-10T15:28:55Z","topics":["android","gguf","huggingface","inference","jetpack-compose","kotlin","llama-cpp","llm","local-llm","offline-first","on-device-ai","privacy"]}
 {"description":"Experimental models, trained end to end in the open. Small models built from scratch, self-labeled data, and published weights, code and training logs.","has_pages":false,"homepage":"https://experimentalintelligence.org","license":null,"name":"experimentalintelligence.org","private":false,"pushed_at":"2026-09-12T10:48:33Z","topics":[]}
-{"description":null,"has_pages":false,"homepage":null,"license":null,"name":"execuport","private":false,"pushed_at":"2026-09-12T13:40:27Z","topics":[]}
+{"description":null,"has_pages":false,"homepage":null,"license":null,"name":"execupack","private":false,"pushed_at":"2026-09-12T13:40:27Z","topics":[]}
 {"description":null,"has_pages":false,"homepage":null,"license":null,"name":"execubench","private":true,"pushed_at":"2026-09-12T11:07:19Z","topics":[]}
 
 ## Org members
@@ -1579,7 +1579,7 @@ readout from the reply.
 QuickJS under its MIT license; the OpenCL headers and ICD loader under Apache 2.0. Models
 are published by third parties under their own licenses.
 
-### execuport
+### execupack
 # exe-expo
 
 Exports small open-weight LLMs from Hugging Face to ExecuTorch `.pte` files for the
@@ -1629,14 +1629,14 @@ Windows); see the install steps in
 - `pipeline/`: eligibility, family recipes, checkpoint conversion, export, smoke test, publishing.
 - `tests/`: unit tests; `tests/fixtures` holds real HF `config.json` files and ExecuTorch's own params files.
 
-### execuport config/versions.env
+### execupack config/versions.env
 # Toolchain versions that are not pip packages, plus the ExecuTorch release every backend
 # must match. EXECUTORCH_VERSION has to equal the executorch-android AAR the openweights app
 # ships (gradle/libs.versions.toml there): a newer exporter can emit method names the older
 # runtime does not know. tests/test_versions.py checks the pip pins agree with it.
 EXECUTORCH_VERSION=1.4.0
 PYTHON_VERSION=3.11
-### execuport config/pipeline.yaml
+### execupack config/pipeline.yaml
 # Settings for the watcher and the export workflows. Toolchain versions live in
 # requirements/*.txt; config/versions.env holds the ones pip does not install.
 

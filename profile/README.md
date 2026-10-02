@@ -39,7 +39,7 @@ Each export card identifies the source revision, quantization recipe, context wi
 
 ## Tooling
 
-[execuport](https://github.com/ExperimentalMachines/execuport) exports supported open-weight models on GitHub-hosted runners, smoke-tests each `.pte` with the same runner used by the app, and publishes the artifacts and reports to Hugging Face. The exporter supports XNNPACK, Qualcomm QNN, MediaTek NeuroPilot, and Vulkan where a family has a validated recipe.
+[execupack](https://github.com/ExperimentalMachines/execupack) exports supported open-weight models on GitHub-hosted runners, smoke-tests each `.pte` with the same runner used by the app, and publishes the artifacts and reports to Hugging Face. The exporter supports XNNPACK, Qualcomm QNN, MediaTek NeuroPilot, and Vulkan where a family has a validated recipe.
 
 ## Contact
 
