@@ -11,7 +11,7 @@
 
 ## Model catalog
 
-This organization has 51 public model repositories and 5 public datasets. Collections are the catalog and recommendation surface; they group deployment exports by family and keep the organization page focused on artifacts that run in [OpenWeights](https://github.com/ExperimentalMachines/openweights).
+This organization has 52 public model repositories and 5 public datasets. Collections are the catalog and recommendation surface; they group deployment exports by family and keep the organization page focused on artifacts that run in [OpenWeights](https://github.com/ExperimentalMachines/openweights).
 
 | Collection | Contents |
 |---|---|
@@ -29,7 +29,7 @@ The LFM2.5 entries use the corrected prompt-state recipe and GPTQ-solved int4 we
 
 ## Research artifacts
 
-[LFM3 Mobile Agent](https://huggingface.co/collections/experimentalmachines/lfm3-mobile-agent-6b03a79f8e23b8dde16e8326) is a screenshot-only Android agent post-trained from LiquidAI's LFM3-VL-2B: every version (v1–v4.3), four comparison fine-tunes, their 4-bit GGUFs for llama.cpp, and the training datasets. The main model, v4, solved 54 of 348 held-out AndroidWorld tasks against GUI-Owl-1.5-2B's 47 (non-inferior under a preregistered margin, superiority not shown). Code, harnesses, raw results and audits: [lfm3-mobile-agent](https://github.com/ExperimentalMachines/lfm3-mobile-agent).
+[LFM3 Mobile Agent](https://huggingface.co/collections/experimentalmachines/lfm3-mobile-agent-6b03a79f8e23b8dde16e8326) is a screenshot-only Android agent post-trained from LiquidAI's LFM3-VL-2B: every version (v1–v4.3), four comparison fine-tunes, their 4-bit GGUFs for llama.cpp, and the training datasets. The main model, v4, solved 54 of 348 held-out AndroidWorld tasks against GUI-Owl-1.5-2B's 47 (non-inferior under a preregistered margin, superiority not shown). Code, harnesses, raw results and audits: [lfm3-mobile-agent](https://github.com/ExperimentalMachines/lfm3-mobile-agent). [LFM3-VL-2B-MobileAgent-v4-LiteRT](https://huggingface.co/experimentalmachines/LFM3-VL-2B-MobileAgent-v4-LiteRT) runs v4 on a phone's GPU with LiteRT-LM (about 3.5 s per model call on a Snapdragon reference phone) in the [Mobile Agent](https://github.com/ExperimentalMachines/mobile-agent) app.
 
 [QwenGrad-DPO](https://huggingface.co/experimentalmachines/QwenGrad-DPO) is intentionally outside the collections. It is the standard Transformers-format checkpoint from the [OpenGrad](https://github.com/arjhinety/OpenGrad) research study; its paired phone deployment export is in the QwenGrad collection.
 
