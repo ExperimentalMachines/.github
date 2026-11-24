@@ -11,7 +11,7 @@
 
 ## Model catalog
 
-This organization has 52 public model repositories and 5 public datasets. Collections are the catalog and recommendation surface; they group deployment exports by family and keep the organization page focused on artifacts that run in [OpenWeights](https://github.com/ExperimentalMachines/openweights).
+This organization has 55 public model repositories and 6 public datasets. Collections are the catalog and recommendation surface; they group deployment exports by family and keep the organization page focused on artifacts that run in [OpenWeights](https://github.com/ExperimentalMachines/openweights).
 
 | Collection | Contents |
 |---|---|

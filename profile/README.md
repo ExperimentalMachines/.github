@@ -17,7 +17,7 @@ The phone measurements behind the app include [latency on five chips](https://ex
 
 ## Models on Hugging Face
 
-The [Experimental Machines Hugging Face organization](https://huggingface.co/experimentalmachines) has 52 public model repositories and 5 public datasets. The catalog is organized through collections; use them as the model navigation surface.
+The [Experimental Machines Hugging Face organization](https://huggingface.co/experimentalmachines) has 55 public model repositories and 6 public datasets. The catalog is organized through collections; use them as the model navigation surface.
 
 | Collection | Contents |
 |---|---|
@@ -28,7 +28,7 @@ The [Experimental Machines Hugging Face organization](https://huggingface.co/exp
 | [Llama 3.2 for ExecuTorch](https://huggingface.co/collections/experimentalmachines/llama-32-for-executorch-6aad16db65a6e6b677b18e49) | Llama 3.2 deployment exports. |
 | [SmolLM2 for ExecuTorch](https://huggingface.co/collections/experimentalmachines/smollm2-for-executorch-6aad16dcc1832da6f696a90d) | SmolLM2 deployment exports. |
 | [QwenGrad for ExecuTorch](https://huggingface.co/collections/experimentalmachines/qwengrad-for-executorch-6aa5008c9414ee393594e3a8) | The evaluated ExecuTorch deployment build for the OpenGrad study. |
-| [LFM3 Mobile Agent](https://huggingface.co/collections/experimentalmachines/lfm3-mobile-agent-6b03a79f8e23b8dde16e8326) | Screenshot-only Android agents: LFM3-VL-2B v1–v4.3 and four comparison fine-tunes, their phone GGUFs, v4 as a LiteRT-LM file, and the training datasets. |
+| [LFM3 Mobile Agent](https://huggingface.co/collections/experimentalmachines/lfm3-mobile-agent-6b03a79f8e23b8dde16e8326) | Screenshot-only Android agents: LFM3-VL-2B v1–v4.4 and four comparison fine-tunes, their phone GGUFs, v4 as a LiteRT-LM file, and the training datasets. |
 
 Each export card identifies the source revision, quantization recipe, context window, file checksum, and smoke-test result. The compiled LFM2.5 exports use the fixed prompt-state recipe and GPTQ-solved int4 weights; benchmark reports distinguish model behavior from export validation.
 
